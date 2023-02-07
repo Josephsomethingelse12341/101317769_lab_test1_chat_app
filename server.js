@@ -2,7 +2,12 @@ var express = require("express")
 var mongoose = require("mongoose")
 var socket = require("socket.io")
 
+var userModel = require("./models/Users")
+
+
 var app = express()
+
+app.use(express.json());
 
 var PORT = 8088
 
@@ -48,6 +53,35 @@ mongoose.connect('mongodb+srv://Josephadmin:7HYpxGTzZiOnEocy@cluster0.gsshbsu.mo
 }).catch(err => {
   console.log('Error Mongodb connection')
 });
+
+app.get('/register', async (req, res) => {
+    res.sendFile(__dirname + '/register.html')
+});
+
+app.post('/register', async (req, res) => {
+    console.log(req.body)
+    const user = new userModel(req.body)
+
+    try {
+        await user.save((err) => {
+          if(err){
+            res.send(err)
+          }else{
+            res.sendFile(__dirname + '/login.html')
+          }
+        });
+      } catch (err) {
+        res.status(500).send(err);
+      }
+    res.sendFile(__dirname + '/login.html')
+
+});
+
+app.get(['/', '/login'], async (req, res) => {
+    res.sendFile(__dirname + '/login.html')
+})
+
+
 
 
 

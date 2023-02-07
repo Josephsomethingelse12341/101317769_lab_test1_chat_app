@@ -20,6 +20,20 @@ const GroupMsgSchema = new mongoose.Schema({
     },
 });
 
+GroupMsgSchema.pre('save', (next) => {
+    console.log("Before Save")
+    let now = Date.now()
+     
+    // Set a value for createdAt only if it is null
+    if (!this.date_sent) {
+      this.date_sent = now
+    }
+    
+    // Call the next function in the pre-save chain
+    next()
+});
+
+
 PrivateMsgSchema.pre('findOneAndUpdate', (next) => {
     console.log("Before findOneAndUpdate")
     let now = Date.now()

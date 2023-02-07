@@ -24,6 +24,15 @@ const UserSchema = new mongoose.Schema({
     },
 });
 
+UserSchema.pre('save', (next) => {
+    console.log("Adding Timestamp")
+    let now = Date.now()
+     
+    this.createon = now
+    next() //Required to save the record
+});
+  
+
 UserSchema.pre('findOneAndUpdate', (next) => {
     console.log("Before findOneAndUpdate")
     let now = Date.now()
@@ -49,5 +58,5 @@ UserSchema.post('remove', (doc) => {
     console.log('%s has been removed', doc._id);
 });
 
-const User = mongoose.model('User', UserSchema);
-module.exports = User;
+const Users = mongoose.model('Users', UserSchema);
+module.exports = Users;
