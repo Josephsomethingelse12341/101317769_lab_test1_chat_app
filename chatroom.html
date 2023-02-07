@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>ChatRooms</title>
+   </head>
+   
+   <body>
+      <h1>Chat App</h1>
+      <div id = "error-container"></div>
+      <input id = "room" type = "text" name = "room" value = "" 
+         placeholder = "Enter room name!">
+      <button type = "button" name = "button" onclick = "joinRoom()">
+         Join Room!
+      </button>
+      <form action="/login" method="get">
+        <button type="submit">Log out</button>
+      </form>
+
+      <br/>
+      <input id = "message" type = "text" name = "message" value = "" 
+         placeholder = "Enter message to send!">
+      <button type = "button" name = "button" onclick = "sendMessage()">
+         Send Message!
+      </button>
+   </body>
+</html>

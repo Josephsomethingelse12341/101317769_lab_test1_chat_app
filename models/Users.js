@@ -25,12 +25,16 @@ const UserSchema = new mongoose.Schema({
 });
 
 UserSchema.pre('save', (next) => {
-    console.log("Adding Timestamp")
+    console.log("Before Save")
     let now = Date.now()
      
-    this.createon = now
-    next() //Required to save the record
-});
+    if (!this.creaton) {
+      this.creaton = now
+    }
+    
+    // Call the next function in the pre-save chain
+    next()
+  });
   
 
 UserSchema.pre('findOneAndUpdate', (next) => {
